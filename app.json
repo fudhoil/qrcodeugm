@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ReactNativeExpo",
-    "slug": "ReactNativeExpo",
-    "version": "1.0.0",
+    "name": "QRCodeUGM",
+    "slug": "QRCodeUGM",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,16 +18,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fudhoil.QRCodeUGM"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.fudhoil.QRCodeUGM"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1264a68a-283b-4d91-9a59-386e4195c6a4"
+      }
     }
   }
 }
