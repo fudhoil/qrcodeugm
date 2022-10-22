@@ -45,7 +45,7 @@ const HomeScreen = () => {
 
   const handleBarCodeScanned = ({ _, data }) => {
     const decoded = myDecipher(data);
-    if (decoded.includes("@")) {
+    if (decoded) {
       setScanned(true);
       dispatch(checkData(decoded));
       setModalVisible(true);
