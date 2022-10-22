@@ -8,6 +8,7 @@ import {
   Pressable,
   ImageBackground,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import { s } from "react-native-wind";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,12 +41,15 @@ const HomeScreen = () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
-  }, []);
-  const handleBarCodeScanned = async ({ type, data }) => {
+  }, [hasil]);
+
+  const handleBarCodeScanned = ({ _, data }) => {
     const decoded = myDecipher(data);
-    dispatch(checkData(decoded));
-    setModalVisible(true);
-    setScanned(true);
+    if (decoded.includes("@")) {
+      setScanned(true);
+      dispatch(checkData(decoded));
+      setModalVisible(true);
+    }
   };
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -68,7 +72,8 @@ const HomeScreen = () => {
             <Text style={styles.titleSmall}>for UGM | UIF</Text>
             <BarCodeScanner
               onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-              style={(StyleSheet.absoluteFillObject, s`h-full`)}
+              style={(StyleSheet.absoluteFillObject, s`mt-5`)}
+              height={650}
             />
           </View>
 
@@ -87,13 +92,28 @@ const HomeScreen = () => {
                   {hasil?.data?.length > 0 ? (
                     <>
                       <Text>Scan Successfull, Welcome</Text>{" "}
-                      <TouchableHighlight
-                        style={s`bg-blue-300 rounded-full p-2`}
-                      >
-                        <Text style={styles.modalTextSuccess}>
-                          {hasil.data[0].fullName}
-                        </Text>
-                      </TouchableHighlight>
+                      {status === "success" && (
+                        <TouchableHighlight
+                          style={s`bg-blue-300 w-full rounded-md p-2`}
+                        >
+                          <View>
+                            <Text style={styles.modalTextSuccess}>
+                              {hasil.data[0].fullName2 && "1."}{" "}
+                              {hasil.data[0].fullName}
+                            </Text>
+                            {hasil.data[0].fullName2 && (
+                              <Text style={styles.modalTextSuccess}>
+                                2. {hasil.data[0].fullName2}
+                              </Text>
+                            )}
+                            {hasil.data[0].fullName3 && (
+                              <Text style={styles.modalTextSuccess}>
+                                3. {hasil.data[0].fullName3}
+                              </Text>
+                            )}
+                          </View>
+                        </TouchableHighlight>
+                      )}
                     </>
                   ) : (
                     <>
